@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './img/logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Stack from 'react-bootstrap/Stack';
 import Container from 'react-bootstrap/Container';
@@ -94,7 +94,7 @@ function App() {
             <Card.Body>
               <Card.Title>Nombre completo del profesional.</Card.Title>
               <Card.Text>
-                Título del Proyecto.
+                Prueba Técnica "Profesional de Sistemas de Computación" SUN USAC.
               </Card.Text>
             </Card.Body>
           </Col>
