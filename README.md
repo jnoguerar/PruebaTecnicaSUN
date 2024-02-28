@@ -36,4 +36,4 @@ Antes de comenzar, asegurese de tener instalado:
 
 ## Autor
 
-* ** 
+Jorge Mario Noguera Rosal
