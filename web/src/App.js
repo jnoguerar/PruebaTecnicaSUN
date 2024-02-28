@@ -92,7 +92,7 @@ function App() {
           </Col>
           <Col xs={4} md={6}>
             <Card.Body>
-              <Card.Title>Nombre completo del profesional.</Card.Title>
+              <Card.Title>Jorge Mario Noguera.</Card.Title>
               <Card.Text>
                 Prueba Técnica "Profesional de Sistemas de Computación" SUN USAC.
               </Card.Text>
