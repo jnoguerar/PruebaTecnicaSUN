@@ -19,6 +19,10 @@ Antes de comenzar, asegurese de tener instalado:
 * GitHub Desktop
 * Visual Studio Code
 
+* En caso presentar error al ejecutar los comandos por error de Windows relacionado a la ejecucion de scrips ejectuar en una powershell como admin:
+* ** Get-ExecutionPolicy -List
+* ** Set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
+
 1. Seleccionar la herramienta mas cómoda para el uso de Git, se puede usar Git Bash, Git GUI o Github Desktop.
 2. Clone el proyecto
 3. Para la API
