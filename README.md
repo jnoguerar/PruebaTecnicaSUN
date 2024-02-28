@@ -1,1 +1,30 @@
 # PruebaTecnicaSUN
+_Aplicación web para la prueba tecnica SUN, en la cual se crea una pequeña web para un mantenimiento de Notas._
+
+### Pre-requisitos de instalación
+
+_Para poder hacer uso de está aplicación, es necesario contar el IDE de desarrollo Visual Studio Code, no se debe olvidar las respectivas CLI de NodeJS, y NPM, ya que se hace uso de React y NodeJS, ademas de tener sqlite_
+
+## Herramientas
+
+* [NodeJS ] https://nodejs.org/es
+* [Visual Studio Code] https://code.visualstudio.com/
+
+## Guia de Instalación
+
+Antes de comenzar, asegurese de tener instalado:
+
+* NodeJS 18.19.0
+* Git
+* GitHub Desktop
+* Visual Studio Code
+
+1. Seleccionar la herramienta mas cómoda para el uso de Git, se puede usar Git Bash, Git GUI o Github Desktop.
+2. Clone el proyecto
+3. Para la API
+
+4. Para la Web
+
+## Autor
+
+* ** 
