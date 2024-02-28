@@ -54,7 +54,7 @@ function App() {
     const resultado = axiosInstance.post("notas/agregar", {
       titulo: titulo,
       nota: nota,
-      fecha: ""
+      fecha: new Date().toDateString()
     }).then(function (response) {
       setRecargar(false);
     })
