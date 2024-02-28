@@ -16,7 +16,12 @@ import axiosInstance from './config/axios-config';
 function App() {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [eliminando, setEliminando] = useState(true);
   const [notas, setNotas] = useState([]);
+  const [recargar, setRecargar] = useState(false);
+
+  const [titulo, settitulo] = useState();
+  const [nota, setnota] = useState();
 
   useEffect(() => {
     const ObtenerNotas = async () => {
@@ -31,17 +36,33 @@ function App() {
     }
 
     ObtenerNotas();
-  }, [])
+  }, [recargar])
 
   useEffect(() => {
     setIsLoading(false);
   }, [notas])
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
+  useEffect(() => {
+    console.log("Titulo cambiado...");
+  }, [titulo])
 
-    // setValidated(true);
-  };
+  useEffect(() => {
+    console.log("Nota cambiada...");
+  }, [nota])
+
+  const CrearNota = async () => {
+    const resultado = axiosInstance.post("notas/agregar", {
+      titulo: titulo,
+      nota: nota,
+      fecha: ""
+    }).then(function (response) {
+      setRecargar(false);
+    })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }
 
   return (
     <>
@@ -61,13 +82,13 @@ function App() {
         </Row>
       </Container>
       <hr></hr>
-      <Stack direction="horizontal" gap={2} className="">
-        <Card style={{ width: '30%' }} className='overflow-auto'>
+      <Row>
+        <Card style={{ width: '30%' }}>
           <Card.Header className="text-center">Crear Nota</Card.Header>
           <Card.Body>
             <Card.Title>Ingrese los datos de la Nota.</Card.Title>
             <hr></hr>
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form noValidate validated={validated} onSubmit={CrearNota}>
               <Col className="mb-3">
                 <Form.Group as={Col} md="15" controlId="tituloNota">
                   <Stack direction="horizontal" gap={2}>
@@ -77,6 +98,7 @@ function App() {
                       type="text"
                       placeholder="Título"
                       defaultValue=""
+                      onChange={(e) => settitulo(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
                       Ingrese el título de la Nota
@@ -94,6 +116,7 @@ function App() {
                       as="textarea"
                       placeholder="Nota"
                       defaultValue=""
+                      onChange={(e) => setnota(e.target.value)}
                     />
                   </Stack>
                   <Form.Control.Feedback type="invalid">
@@ -101,7 +124,7 @@ function App() {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Col>
-              <Button className='float-end' variant="primary">Guardar</Button>
+              <Button className='float-end' type='submit' variant="primary" >Guardar</Button>
             </Form>
           </Card.Body>
         </Card>
@@ -122,8 +145,19 @@ function App() {
                           <Col className='inline'>
                             <Card.Text>{ele.fecha}</Card.Text>
                             <Stack direction="horizontal" gap={2} className='float-end'>
-                              <Button variant="primary">Editar</Button>
-                              <Button variant="primary">Eliminar</Button>
+                              <Button variant="primary" type='button' >Editar</Button>
+                              <Button variant="danger" type='button' onClick={(e) => {
+                                const resultado = axiosInstance.post("notas/eliminar", {
+                                  id: ele.id
+                                }).then(function (response) {
+                                  setRecargar(true);
+                                  setIsLoading(true);
+                                })
+                                  .catch(function (error) {
+                                    // handle error
+                                    console.log(error);
+                                  });
+                              }}>Eliminar</Button>
                               <br></br>
                               <br></br>
                               <br></br>
@@ -140,7 +174,7 @@ function App() {
           </Card.Body>
         </Card>
 
-      </Stack>
+      </Row>
     </>
   );
 }
