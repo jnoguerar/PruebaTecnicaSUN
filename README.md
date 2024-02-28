@@ -26,8 +26,13 @@ Antes de comenzar, asegurese de tener instalado:
 1. Seleccionar la herramienta mas cómoda para el uso de Git, se puede usar Git Bash, Git GUI o Github Desktop.
 2. Clone el proyecto
 3. Para la API
-
+    3.1 Ingresar a la carpeta de la api con cd api
+    3.2 Instalar dependencias: npm install
+    3.3 Ejecutar la aplicación: npm run start
 4. Para la Web
+    4.1 Ingresar a la carpeta de la web con cd web
+    4.2 Instalar dependencias: npm install
+    4.3 Ejecutar la aplicación: npm run start
 
 ## Autor
 
