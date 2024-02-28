@@ -58,6 +58,21 @@ export const EliminarNota = async (req, res, next) => {
 export const ModificarNota = async (req, res, next) => {
   let response = {};
   try {
+    const {titulo,nota,fecha,id} = req.body;
+    const db = await getConnection();
+    const querys = Notas();
+    
+    const resultado = await db.run(querys.actualizarNota,{
+      ':titulo':titulo,
+      ':nota':nota,
+      ':fecha':fecha,
+      ':titulo':titulo,
+      ':id':id
+    });
+
+    response.data = resultado.id;
+    response.message = "Nota editada con éxito";
+
     res.status(200).json(response);
   } catch (error) {
     console.log("Se produjo una excepcion al procesar la peticion:", error);
