@@ -16,12 +16,14 @@ import axiosInstance from './config/axios-config';
 function App() {
   const [validated, setValidated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [eliminando, setEliminando] = useState(true);
+  const [editando, setEditando] = useState(false);
   const [notas, setNotas] = useState([]);
   const [recargar, setRecargar] = useState(false);
 
-  const [titulo, settitulo] = useState();
-  const [nota, setnota] = useState();
+  const [titulo, settitulo] = useState("");
+  const [nota, setnota] = useState("");
+  const [idActual, setidActual] = useState(0);
+  const [fechaAnterior, setfechaAnterior] = useState("");
 
   useEffect(() => {
     const ObtenerNotas = async () => {
@@ -51,17 +53,34 @@ function App() {
   }, [nota])
 
   const CrearNota = async () => {
-    const resultado = axiosInstance.post("notas/agregar", {
-      titulo: titulo,
-      nota: nota,
-      fecha: new Date().toDateString()
-    }).then(function (response) {
-      setRecargar(false);
-    })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
+    if (editando === true) {
+      const resultado = axiosInstance.post("notas/modificar", {
+        titulo: titulo,
+        nota: nota,
+        fecha: fechaAnterior,
+        id: idActual
+      }).then(function (response) {
+        setRecargar(false);
+        setidActual(0)
+        setfechaAnterior("")
+      })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    } else {
+      const resultado = axiosInstance.post("notas/agregar", {
+        titulo: titulo,
+        nota: nota,
+        fecha: new Date().toDateString()
+      }).then(function (response) {
+        setRecargar(false);
+      })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    }
   }
 
   return (
@@ -97,7 +116,7 @@ function App() {
                       required
                       type="text"
                       placeholder="Título"
-                      defaultValue=""
+                      defaultValue={titulo}
                       onChange={(e) => settitulo(e.target.value)}
                     />
                     <Form.Control.Feedback type="invalid">
@@ -115,7 +134,7 @@ function App() {
                       required
                       as="textarea"
                       placeholder="Nota"
-                      defaultValue=""
+                      defaultValue={nota}
                       onChange={(e) => setnota(e.target.value)}
                     />
                   </Stack>
@@ -145,7 +164,13 @@ function App() {
                           <Col className='inline'>
                             <Card.Text>{ele.fecha}</Card.Text>
                             <Stack direction="horizontal" gap={2} className='float-end'>
-                              <Button variant="primary" type='button' >Editar</Button>
+                              <Button variant="primary" type='button' onClick={(e) => {
+                                settitulo(ele.titulo);
+                                setnota(ele.nota);
+                                setEditando(true);
+                                setidActual(ele.id);
+                                setfechaAnterior(ele.fecha);
+                              }}>Editar</Button>
                               <Button variant="danger" type='button' onClick={(e) => {
                                 const resultado = axiosInstance.post("notas/eliminar", {
                                   id: ele.id
